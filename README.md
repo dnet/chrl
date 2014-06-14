@@ -6,13 +6,7 @@ still allows setting an individual color for each lantern. The current plan
 uses a shift register and a single RGB LED per lantern, resulting in 1 EUR
 cost per lamp approximately.
 
-Diagram
--------
-
-                       [rgbled]        [rgbled]
-                          /\              /\
-                          ||              ||
-    [controller] ===> [shiftreg] ===> [shiftreg] ===> ...
+![Schematic for two lanterns](schematic/chrl.png)
 
 Signal lines
 ------------
