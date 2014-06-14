@@ -18,20 +18,17 @@ void loop() {
 	static uint8_t r = 0, g = 0, b = 0;
 
 	if (Serial.available() > 2) {
-		r = Serial.read() - '0';
-		g = Serial.read() - '0';
-		b = Serial.read() - '0';
-		Serial.println(r, DEC);
-		Serial.println(g, DEC);
-		Serial.println(b, DEC);
+		r = Serial.read();
+		g = Serial.read() / 3;
+		b = Serial.read() / 3;
 	}
 
-	for (uint8_t i = 0; i < 9; i++) {
+	for (uint8_t i = 0x00; i != 0xFF; i++) {
 		uint8_t data = 0;
 		if (r > i) data |= RED_BIT;
 		if (g > i) data |= GREEN_BIT;
 		if (b > i) data |= BLUE_BIT;
 		SPI.transfer(data);
-		delay(1);
+		delayMicroseconds(40);
 	}
 }
