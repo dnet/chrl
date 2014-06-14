@@ -3,10 +3,13 @@
 		<script type="text/javascript">
 
 		function updateColor() {
-			var r = document.getElementById("R").value;
-			var g = document.getElementById("G").value;
-			var b = document.getElementById("B").value;
-			var data = [r, g, b].join(",");
+			var r1 = document.getElementById("R1").value;
+			var g1 = document.getElementById("G1").value;
+			var b1 = document.getElementById("B1").value;
+			var r2 = document.getElementById("R2").value;
+			var g2 = document.getElementById("G2").value;
+			var b2 = document.getElementById("B2").value;
+			var data = [r1, g1, b1].join(",") + "\n" + [r2, g2, b2].join(",");
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", "{{ url_for('update') }}", true);
 			xhr.setRequestHeader("Content-type", "text/csv");
@@ -14,29 +17,33 @@
 			xhr.send(data);
 		}
 
-		function rainbow() {
-			document.getElementById("R").value = 255;
-			document.getElementById("G").value = 0;
-			document.getElementById("B").value = 0;
+		function rainbow(idx) {
+			document.getElementById("R" + idx).value = 255;
+			document.getElementById("G" + idx).value = 0;
+			document.getElementById("B" + idx).value = 0;
 			for (var i = 0; i < 26; i++) {
-				setTimeout("document.getElementById('G').value = " + (i * 10) + "; updateColor();", i * 40);
-				setTimeout("document.getElementById('R').value = " + ((25 - i) * 10) + "; updateColor();", (i + 25) * 40);
-				setTimeout("document.getElementById('B').value = " + (i * 10) + "; updateColor();", (i + 50) * 40);
-				setTimeout("document.getElementById('G').value = " + ((25 - i) * 10) + "; updateColor();", (i + 75) * 40);
-				setTimeout("document.getElementById('R').value = " + (i * 10) + "; updateColor();", (i + 100) * 40);
-				setTimeout("document.getElementById('B').value = " + ((25 - i) * 10) + "; updateColor();", (i + 125) * 40);
+				setTimeout("document.getElementById('G" + idx + "').value = " + (i * 10) + "; updateColor();", i * 40);
+				setTimeout("document.getElementById('R" + idx + "').value = " + ((25 - i) * 10) + "; updateColor();", (i + 25) * 40);
+				setTimeout("document.getElementById('B" + idx + "').value = " + (i * 10) + "; updateColor();", (i + 50) * 40);
+				setTimeout("document.getElementById('G" + idx + "').value = " + ((25 - i) * 10) + "; updateColor();", (i + 75) * 40);
+				setTimeout("document.getElementById('R" + idx + "').value = " + (i * 10) + "; updateColor();", (i + 100) * 40);
+				setTimeout("document.getElementById('B" + idx + "').value = " + ((25 - i) * 10) + "; updateColor();", (i + 125) * 40);
 			}
-			setTimeout("if (document.getElementById('repeat').checked) rainbow();", 150 * 40);
+			setTimeout("if (document.getElementById('repeat" + idx + "').checked) rainbow(" + idx + ");", 150 * 40);
 		}
 
 		</script>
 	</head>
 	<body>
+	<h1>Lantern control</h1>
+	{% for idx in '12' %}
+	<h2>Lantern {{ idx }}</h2>
 	{% for color in 'RGB' %}
 	<div>{{ color }} <input type="range" step="1" min="0" max="255"
-		oninput="updateColor();" id="{{ color }}" value="0"></div>
+		oninput="updateColor();" id="{{ color }}{{ idx }}" value="0"></div>
 	{% endfor %}
-	<input type="button" value="Rainbow" onclick="rainbow()">
-	<input type="checkbox" id="repeat"> <label for="repeat">repeat</label>
+	<input type="button" value="Rainbow" onclick="rainbow({{ idx }})">
+	<input type="checkbox" id="repeat{{ idx }}"> <label for="repeat{{ idx }}">repeat</label>
+	{% endfor %}
 	</body>
 </html>

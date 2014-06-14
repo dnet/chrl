@@ -12,7 +12,7 @@ def home():
 
 @app.route('/update', methods=['POST'])
 def update():
-    port.write(''.join(chr(int(i)) for i in request.data.split(',')))
+    port.write(''.join(''.join(chr(int(i)) for i in line.split(',')) for line in request.data.split('\n')))
     return ''
 
 if __name__ == '__main__':
