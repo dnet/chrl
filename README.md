@@ -19,6 +19,7 @@ Signal lines
 Shift register pinout
 ---------------------
 
+ - 1 bit for each color + PWM (the current version uses this)
  - 2 bits for everything (leaves 2 spare pins)
  - 3 bits for red and green, 2 bits for blue ([256 colors][256c])
 
