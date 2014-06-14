@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<script type="text/javascript">
+
+		function updateColor() {
+			var r = document.getElementById("R").value;
+			var g = document.getElementById("G").value;
+			var b = document.getElementById("B").value;
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "{{ url_for('update') }}", true);
+			xhr.setRequestHeader("Content-type", "text/plain");
+			xhr.setRequestHeader("Content-length", 3)
+			xhr.send([r, g, b].join(""));
+		}
+
+		</script>
+	</head>
+	<body>
+	{% for color in 'RGB' %}
+	<div>{{ color }} <input type="range" step="1" min="0" max="9"
+		oninput="updateColor();" id="{{ color }}" value="0"></div>
+	{% endfor %}
+	</body>
+</html>
