@@ -8,6 +8,7 @@ from contextlib import closing
 class Rainbow(object):
     STEPS = 0x600
     LEDS = 10
+    SKIP = 8
 
     def offset_per_led(self):
         return float(self.STEPS) / float(self.LEDS)
@@ -29,7 +30,7 @@ class Rainbow(object):
             s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
             s.connect((host, 17504))
             while True:
-                for i in xrange(0, self.STEPS, 8):
+                for i in xrange(0, self.STEPS, self.SKIP):
                     s.sendall(''.join(self.rgb(int(round(i + float(j) * self.offset_per_led())) % self.STEPS)
                         for j in xrange(self.LEDS)))
                     sleep(0.01)
