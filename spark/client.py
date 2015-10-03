@@ -4,6 +4,7 @@ from __future__ import print_function
 from socket import socket, SOCK_DGRAM, SOL_SOCKET, SO_REUSEADDR, SO_BROADCAST
 from time import sleep
 from contextlib import closing
+from random import shuffle
 
 class Rainbow(object):
     STEPS = 0x600
@@ -38,6 +39,10 @@ class Rainbow(object):
 class Fire(Rainbow):
     STEPS = 0x200
     SKIP = 3
+
+    def __init__(self):
+        Rainbow.__init__(self)
+        shuffle(self.LEDS)
 
     def rgb(self, state):
         substate = state / 256
