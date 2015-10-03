@@ -53,8 +53,12 @@ if __name__ == '__main__':
     from sys import argv, stderr
     try:
         host = argv[1]
+        effect = globals()[argv[2]]
     except IndexError:
-        print('Usage: {0} <host>'.format(argv[0]), file=stderr)
+        print('Usage: {0} <host> <effect>'.format(argv[0]), file=stderr)
+        raise SystemExit(1)
+    except KeyError:
+        print('Invalid effect, see source for valid values', file=stderr)
         raise SystemExit(1)
     else:
-        Rainbow().execute(host)
+        effect().execute(host)
