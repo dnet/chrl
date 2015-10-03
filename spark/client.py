@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from socket import socket, SOCK_DGRAM, SOL_SOCKET, SO_REUSEADDR, SO_BROADCAST
 from time import sleep
 from contextlib import closing

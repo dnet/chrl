@@ -2,9 +2,9 @@
 
 #include <SPI.h>
 
-#define RED_BIT 2
-#define GREEN_BIT 4
-#define BLUE_BIT 8
+#define RED_BIT 128
+#define GREEN_BIT 32
+#define BLUE_BIT 64
 
 #define LANTERNS 2
 
