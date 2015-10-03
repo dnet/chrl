@@ -7,11 +7,11 @@ from contextlib import closing
 
 class Rainbow(object):
     STEPS = 0x600
-    LEDS = 10
+    LEDS = range(10)
     SKIP = 8
 
     def offset_per_led(self):
-        return float(self.STEPS) / float(self.LEDS)
+        return float(self.STEPS) / float(len(self.LEDS))
 
     def rgb(self, state):
         substate = state / 256
@@ -32,7 +32,7 @@ class Rainbow(object):
             while True:
                 for i in xrange(0, self.STEPS, self.SKIP):
                     s.sendall(''.join(self.rgb(int(round(i + float(j) * self.offset_per_led())) % self.STEPS)
-                        for j in xrange(self.LEDS)))
+                        for j in self.LEDS))
                     sleep(0.01)
 
 class Fire(Rainbow):
