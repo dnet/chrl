@@ -35,6 +35,15 @@ class Rainbow(object):
                         for j in xrange(self.LEDS)))
                     sleep(0.01)
 
+class Fire(Rainbow):
+    STEPS = 0x200
+    SKIP = 3
+
+    def rgb(self, state):
+        substate = state / 256
+        progress = state % 256
+        return chr(255) + chr(progress / 3 if substate == 0 else (255 - progress) / 3) + chr(0)
+
 if __name__ == '__main__':
     from sys import argv, stderr
     try:
