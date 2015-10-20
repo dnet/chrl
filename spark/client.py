@@ -5,11 +5,13 @@ from socket import socket, SOCK_DGRAM, SOL_SOCKET, SO_REUSEADDR, SO_BROADCAST
 from time import sleep
 from contextlib import closing
 from random import shuffle
+import struct
 
 class Rainbow(object):
     STEPS = 0x600
     LEDS = range(10)
     SKIP = 8
+    DELAY = 0.01
 
     def offset_per_led(self):
         return float(self.STEPS) / float(len(self.LEDS))
@@ -34,7 +36,7 @@ class Rainbow(object):
                 for i in xrange(0, self.STEPS, self.SKIP):
                     s.sendall(''.join(self.rgb(int(round(i + float(j) * self.offset_per_led())) % self.STEPS)
                         for j in self.LEDS))
-                    sleep(0.01)
+                    sleep(self.DELAY)
 
 class Fire(Rainbow):
     STEPS = 0x200
@@ -59,6 +61,18 @@ class IceCave(Purplish):
     def rgb(self, state):
         r, g, b = Purplish.rgb(self, state)
         return g + r + b
+
+class XmasTree(Rainbow):
+    COLORS = [0xff0000, 0xffcc00, 0x00ff00, 0x0000ff]
+    STEPS = 4
+    SKIP = 1
+    DELAY = 0.5
+
+    def offset_per_led(self):
+        return 1
+
+    def rgb(self, state):
+        return struct.pack('>I', self.COLORS[state])[1:]
 
 if __name__ == '__main__':
     from sys import argv, stderr
