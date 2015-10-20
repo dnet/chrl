@@ -55,6 +55,11 @@ class Purplish(Fire):
         progress = state % 256
         return chr(63 + progress * 3 / 4 if substate == 0 else 63 + (255 - progress) * 3 / 4) + chr(0) + chr(192 + progress / 4 if substate == 0 else 192 + (255 - progress) / 4)
 
+class IceCave(Purplish):
+    def rgb(self, state):
+        r, g, b = Purplish.rgb(self, state)
+        return g + r + b
+
 if __name__ == '__main__':
     from sys import argv, stderr
     try:
