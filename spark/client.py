@@ -62,6 +62,11 @@ class IceCave(Purplish):
         r, g, b = Purplish.rgb(self, state)
         return g + r + b
 
+class GirlsBedroom(Purplish):
+    def rgb(self, state):
+        r, g, b = Purplish.rgb(self, state)
+        return b + g + r
+
 class XmasTree(Rainbow):
     COLORS = [0xff0000, 0xffcc00, 0x00ff00, 0x0000ff]
     STEPS = 4
