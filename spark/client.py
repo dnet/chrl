@@ -49,6 +49,12 @@ class Fire(Rainbow):
         progress = state % 256
         return chr(255) + chr(progress / 3 if substate == 0 else (255 - progress) / 3) + chr(0)
 
+class Purplish(Fire):
+    def rgb(self, state):
+        substate = state / 256
+        progress = state % 256
+        return chr(63 + progress * 3 / 4 if substate == 0 else 63 + (255 - progress) * 3 / 4) + chr(0) + chr(192 + progress / 4 if substate == 0 else 192 + (255 - progress) / 4)
+
 if __name__ == '__main__':
     from sys import argv, stderr
     try:
