@@ -79,6 +79,9 @@ class XmasTree(Rainbow):
     def rgb(self, state):
         return struct.pack('>I', self.COLORS[state])[1:]
 
+class Irish(XmasTree):
+    COLORS = [0x000000, 0xff8000, 0xffffff, 0x00ff00]
+
 if __name__ == '__main__':
     from sys import argv, stderr
     try:
